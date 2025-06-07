@@ -1,0 +1,26 @@
+used ghidra and found this in the functions:
+
+Reverse Engineering Writeup: Full Flag Extraction
+
+Part 1 (print_1st_part)
+Prints the fixed string:
+1nf1n1ty{
+
+Part 2 (print_2nd_part):
+
+Contains encoded string bytes: 0x5e326c2f62303276 and 0x5e2f36
+Each character is printed after adding 1 to its ASCII value.
+Decoding gives:
+w31c0m3_
+
+Part 3 (print_3rd_part):
+
+Contains string: "A553mb1y}" stored reversed, and prints it in reverse order
+So it outputs:
+}y1bm355A
+Reverse it back to get the final part of the flag:
+A553mb1y}
+
+
+Final Flag:
+1nf1n1ty{w31c0m3_A553mb1y}
