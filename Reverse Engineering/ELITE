@@ -22,4 +22,4 @@ By systematically going through each comparison in the disassembly, I extracted 
 
 Putting all the pieces together from the bytecode comparisons, I reconstructed the secret phrase:
 
-1nfln1ty{phy7h0n_15_fun}
+flag - 1nfln1ty{phy7h0n_15_fun}
