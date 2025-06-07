@@ -1,0 +1,25 @@
+
+First, I identified elite_linux as a PyInstaller executable. I used pyinstxtractor.py to unpack it, which gave me elite.pyc (the compiled Python bytecode file).
+
+However, traditional decompilers like decompyle3, uncompyle6, and even pycdc all failed to convert elite.
+pyc back into readable Python code. They simply don't support Python 3.12's new bytecode format yet.
+
+
+Since decompilation was a no-go, I switched to bytecode disassembly. 
+This method shows the low-level instructions the Python virtual machine runs, allowing me to manually piece together the program's logic.
+
+I used Python's built-in dis module within a Python 3.12 virtual environment.
+A custom script helped me load elite.pyc and print its disassembly to elite_disassembly.txt.
+
+
+The disassembly revealed a clear pattern:
+
+The program prompts the user for input: "Give the secret Phrase to join the elite: ".
+It then performs a series of checks. Each check takes a character from the user_input at a specific index and compares it to a specific character.
+If all these checks pass, the program prints "you are in the elite now!!!". If any check fails, it prints "Invalid\nHint: The flag is hidden somewhere in this python code".
+By systematically going through each comparison in the disassembly, I extracted the character at its corresponding index.
+
+
+Putting all the pieces together from the bytecode comparisons, I reconstructed the secret phrase:
+
+1nfln1ty{phy7h0n_15_fun}
