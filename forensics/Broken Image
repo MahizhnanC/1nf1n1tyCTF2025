@@ -17,4 +17,4 @@ with open(output_file, 'wb') as f:
 
 print(f"Reversed the file bytes and saved to {output_file}")
 
-this script gave the image which had the flag : 1nf1n1ty{0h_7h4t_w4s_r3v3rs3d!!}
+flag - 1nf1n1ty{0h_7h4t_w4s_r3v3rs3d!!}
