@@ -1,0 +1,55 @@
+
+I wrote a Python script that:
+Connects to the challenge using a socket.
+Sends an initial newline (\n) to start the challenge.
+Receives data from the server, parses each math question.
+Uses Python’s built-in eval() to compute the answer.
+Sends the result back to the server immediately.
+
+Script:
+import socket
+import re
+
+host = 'chall.1nf1n1ty.team'
+port = 5000
+
+s = socket.socket()
+s.connect((host, port))
+
+# Start the challenge by simulating Enter key
+s.send(b'\n')
+
+def solve_expression(expr):
+    try:
+        return str(eval(expr))
+    except:
+        return ""
+
+data = b""
+while True:
+    try:
+        data += s.recv(4096)
+        text = data.decode()
+        print(text)
+
+        match = re.search(r'Question \d+ ?: (.+?) =', text)
+        if match:
+            expr = match.group(1)
+            answer = solve_expression(expr.strip())
+            s.send((answer + '\n').encode())
+            data = b""
+    except Exception as e:
+        print(f"Error: {e}")
+        break
+
+s.close()
+
+
+
+Upon successful completion of the 100 questions, the server responds with the flag:
+
+
+Correct answer!!
+Incredible! You've answered all 100 questions under 30 seconds!
+You've proven your math dominance.
+Here is your well-earned flag : 1nf1n1ty{y0u_4r3_4_m47h_m4573r}
