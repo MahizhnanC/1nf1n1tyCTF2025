@@ -26,6 +26,6 @@ The derived Vigenère key was gambit.
 Decryption and The Flag
 With the ciphertext (1vg1n1mg{H1mg3sq_c17i_4_7e1e7}) and the key (gambit), I then wrote a simple script to reverse the Vigenère cipher. 
 
-Running the decryption script:
-The flag is: 1nf1n1ty{V1gn3re_w17h_4_7w1s7}.
+
+flag - 1nf1n1ty{V1gn3re_w17h_4_7w1s7}.
 
