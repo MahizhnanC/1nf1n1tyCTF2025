@@ -44,9 +44,7 @@ while True:
 
 s.close()
 
-
-
-Upon successful completion of the 100 questions, the server responds with the flag:
+ the server responds with the flag:
 
 
 Correct answer!!
