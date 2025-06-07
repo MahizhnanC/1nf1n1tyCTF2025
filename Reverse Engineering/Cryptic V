@@ -1,0 +1,31 @@
+main Function: My Ghidra analysis of main showed it reads my input and passes it to a function named dmlnbmVyZXY along with an output buffer.
+Notably, dmlnbmVyZXY then writes its transformed output to a file called flag.txt. This immediately suggested the program was an encryption tool, 
+and the flag I was provided separately (1vg1n1mg{H1mg3sq_c17i_4_7e1e7}) was the ciphertext I needed to decrypt.
+
+dmlnbmVyZXY Function: This function implemented the core transformation. I observed it iterating through the input characters:
+
+Non-alphabetic characters were copied directly to the output.
+Alphabetic characters underwent a shift, which I identified as a Vigenère cipher.
+The key character for the shift was determined from another function, YnVpbGRLZXk, accessed in reverse order and converted to uppercase.
+
+Discovering the Encryption Key (YnVpbGRLZXk)
+The YnVpbGRLZXk function constructed the Vigenère key by transforming the static string "icodkv". 
+Each character c from "icodkv" was processed using the formula: ((c_ascii - 73) % 26) + 'a'.
+
+I traced this for "icodkv":
+
+i -> g
+c -> a
+o -> m
+d -> b
+k -> i
+v -> t
+
+The derived Vigenère key was gambit.
+
+Decryption and The Flag
+With the ciphertext (1vg1n1mg{H1mg3sq_c17i_4_7e1e7}) and the key (gambit), I then wrote a simple script to reverse the Vigenère cipher. 
+
+Running the decryption script:
+The flag is: 1nf1n1ty{V1gn3re_w17h_4_7w1s7}.
+
