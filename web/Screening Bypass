@@ -1,0 +1,24 @@
+I used ModHeader extension
+
+Screening 1:
+Set User-Agent to CTFPlayer
+
+Screening 2:
+Set Referer to trusted.com
+
+Screening 3:
+Set Accept to application/xml
+
+Screening 4:
+Set Accept-Language to ja-JP
+
+Screening 5:
+Set Host to localhost
+
+Screening 6:
+Set Cache-Control to no-cache
+
+Reloaded the page after setting all headers to get the flag:
+
+1nf1n1ty{h34d3r_m4n1pul4710n_4_7h3_w1n}
+
