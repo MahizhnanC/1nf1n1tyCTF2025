@@ -1,0 +1,20 @@
+the corrupted PNG image file named image.png that appeared broken because its bytes were reversed. This caused important PNG structures, 
+like the IEND chunk that should be at the end, to appear scrambled at the start (e.g., DNEI instead of IEND).
+
+so i wrote a simple python sccript :
+
+input_file = 'image.png'
+output_file = 'fixed_image.png'
+
+with open(input_file, 'rb') as f:
+    data = f.read()
+
+# Reverse the entire byte sequence
+fixed_data = data[::-1]
+
+with open(output_file, 'wb') as f:
+    f.write(fixed_data)
+
+print(f"Reversed the file bytes and saved to {output_file}")
+
+this script gave the image which had the flag : 1nf1n1ty{0h_7h4t_w4s_r3v3rs3d!!}
