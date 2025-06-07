@@ -1,0 +1,12 @@
+Use math.isqrt to compute integer square roots of hint1 and hint2 to get A and B
+Use the above formulas to compute p and q.
+Verify that p * q == n to ensure correctness.
+Compute φ(n) = (p-1)(q-1).
+Compute the modular inverse d = e⁻¹ mod φ(n).
+Decrypt the ciphertext using m = c^d mod n.
+Convert m back to bytes and decode to get the flag.
+
+Final Result:
+
+After implementing the above approach, we successfully decrypted the ciphertext and obtained the flag:
+1nf1n1ty{7h3_5uM_wa5_Ju57_7H3_B391Nn1N}
