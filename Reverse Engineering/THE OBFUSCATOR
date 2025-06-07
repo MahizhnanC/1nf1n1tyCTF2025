@@ -8,4 +8,16 @@ Convert the result back to a character.
 After processing all characters, reverse the whole string to undo the initial reversal.
 Then reverse the string to get the flag.
 
+def deobfuscator(cryptic_flag):
+    temp = ""
+    for c in cryptic_flag:
+        val = (ord(c) >> 1) - 1
+        temp += chr(val)
+    flag = temp[::-1]
+    return flag
+
+cryptic_flag = "üæhlæhîhæÀhìæpÀjÀhæjÀìbôøôêdÞdÎÞd"
+print(deobfuscator(cryptic_flag))
+
+
 flag = 1nf1n1ty{0bfusc4t10n_r3v3rs3d}
