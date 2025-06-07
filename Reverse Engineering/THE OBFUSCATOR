@@ -1,0 +1,11 @@
+To reverse the process and find the original flag from the cryptic_flag, we must invert the operations:
+
+For each character c in cryptic_flag:
+Find its ASCII code: ord(c).
+Divide by 2 (undo the multiplication by 2).
+Subtract 1 (undo the addition of 1).
+Convert the result back to a character.
+After processing all characters, reverse the whole string to undo the initial reversal.
+Then reverse the string to get the flag.
+
+flag = 1nf1n1ty{0bfusc4t10n_r3v3rs3d}
