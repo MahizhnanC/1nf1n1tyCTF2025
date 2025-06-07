@@ -1,0 +1,19 @@
+
+Opened the site, checked cookies using DevTools.
+Found a cookie containing a JWT.
+Decoded the JWT using https://token.dev.
+
+Header:
+{ "alg": "none", "typ": "JWT" }
+Payload:
+{ "user": "user" }
+The JWT uses alg: none, which means no signature is required — a critical vulnerability.
+
+Exploit:
+Modified the payload from "user": "user" → "user": "admin"
+Left the signature blank (as alg: none requires no verification)
+Generated the new token.
+Replaced the cookie value in the browser.
+Refreshed the page — gained admin access 
+
+and got the flag :1nf1n1ty{n0_s1gn4tur3_n0_pr0bl3m}
