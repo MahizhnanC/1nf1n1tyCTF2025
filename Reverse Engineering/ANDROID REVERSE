@@ -1,0 +1,8 @@
+Opened the APK in jadx-gui directly to browse the decompiled Java source.
+
+Found an activity named FlagActivity which sets its content view to activity_flag.xml.
+
+Checked the layout XML in jadx and found the flag text inside a hidden TextView with white text on a white background.
+
+The flag was:
+1nf1n1ty{such_basic_android_stuff}
